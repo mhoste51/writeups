@@ -86,42 +86,57 @@ return 0;
 ```
 
 Dans la fonction main on remarque deux tableaux qui sont initialisés : local_f8 et local_c8 avec une taille de 12.
-La condition if (sVarl == 0xc) nous confirme que la taille du mot de passe est de 12.
+La condition 
+```c
+if (sVarl == 0xc) 
+```
+
+nous confirme que la taille du mot de passe est de 12.
 On remarque ensuite un xor dans la première boucle for puis une vérification de ce xor dans la deuxième boucle for.
 
 Le tableau local_c8 nous sert donc à obtenir une chaine xoré qui sera comparé à local_f8.
 local_84 et local_7c vont nous servir pour le xor.
 La chaine xoré s'obtient de la manière suivante : (&local_84+i)XOR(local_c8[i]).
-    for (local_100 = 0; local_100 < 0xc; local_100 = local_100 + 1) {
-        abStack144[local_100] =
-            *(byte *)((long)&local_84 + (long)local_100) ^ (byte)local_c8[local_100];
-    }
+```c
+for (local_100 = 0; local_100 < 0xc; local_100 = local_100 + 1) {
+    abStack144[local_100] =
+        *(byte *)((long)&local_84 + (long)local_100) ^ (byte)local_c8[local_100];
+}
+```
 
 On a donc ici c =a^b  (^ représente XOR)
 
 Puis nous avons la vérification du password dans la deuxième boucle for :
-      for (local_fc = 0; local_fc < 0xc; local_fc = local_fc + 1) {
-        if ((int)(char)abStack144[local_fc] - (int)local_78[local_fc] != local_f8[local_fc]) {
-          puts("Wrong password.");
-          goto LAB_00101431;
-        }
-      }
+```c
+for (local_fc = 0; local_fc < 0xc; local_fc = local_fc + 1) {
+    if ((int)(char)abStack144[local_fc] - (int)local_78[local_fc] != local_f8[local_fc]) {
+    puts("Wrong password.");
+    goto LAB_00101431;
+    }
+}
+```
 
 On a ici a - b = c.
+
 Chaque caractère de local_f8 doit être égale à la différence entre notre chaîne xorée avec le mot de passe entré.
 Nous pouvons donc reverse cet algo afin d'obtenir le mot de passe :
+
 a-b=c --> a-c=b 
 
 Pour comprendre comment &local_84+i fonctionne, ouvrons radare2 : 
+```
     radare2 -d reverseNotThatHard 
     aaa
     afl
     pdf @main
+```
 
 On pose un breakpoint sur le xor afin d'afficher les valeurs stockés dans la mémoire à chaque itération de la boucle
+```
     bp 0x0000138c
     bc
     br
+```
 
 Bc nous permet de run le programme jusqu'au prochain breakpoint. Une fois le breakpoint toucher, br va nous permettre d'afficher les valeurs enregistrés en mémoire.
 
