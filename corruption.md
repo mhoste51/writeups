@@ -35,7 +35,7 @@ undefined8 main(void)
   return 0;
 }
 ```
-La seul condition pour que l'appel à print_flag se fasse c'est d'avoir : *__ptr[iVar1] = 'B'*  
+La seul condition pour que l'appel à print_flag se fasse c'est d'avoir : *__ptr[0] = 'B'*  
 On cherche alors à avoir iVar = 0 : 
 ```c
 iVar1 = parseint(__ptr_00);
