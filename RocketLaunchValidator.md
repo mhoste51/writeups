@@ -39,7 +39,7 @@ undefined8 main(int param_1,long param_2)
   return uVar2;
 }
 ```
-Rien de particulier ici, la fonction decode_flag attire l'attention.  
+Rien de particulier ici, la fonction decode_flag attire l'attention car elle prend en paramètre la variable __s qui sera utilisé pour l'affichage du flag.  
 Voici la fonction en question :  
 ```c
 undefined8 decode_flag(undefined2 *param_1,char *param_2)
