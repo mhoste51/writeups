@@ -88,9 +88,9 @@ undefined8 decode_flag(undefined2 *param_1,char *param_2)
 }
 ```
 
-Ici on obtient une suite de condition entre notre chaine de caractère entrée et des caractères simple.  
-Rien de plus simple, pour reverse cette condition, il suffit simplement de reprendre le caractère comparé dans chaque if.  
-On obtient alors C2IY3XPZ9  
+Ici on obtient une suite de condition entre notre chaine de caractère entrée et des caractères simples.  
+Rien de plus simple, pour reverse ces conditions, il suffit simplement de reprendre le caractère comparé dans chaque if.  
+On obtient C2IY3XPZ9.
 La fonction va alors retourner uVar2 = 0.
 ```c
 if (iVar1 == 0) {
