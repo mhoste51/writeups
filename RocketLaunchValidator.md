@@ -91,7 +91,7 @@ undefined8 decode_flag(undefined2 *param_1,char *param_2)
 Ici on obtient une suite de condition entre notre chaine de caractère entrée et des caractères simples.  
 Rien de plus simple, pour reverse ces conditions, il suffit simplement de reprendre le caractère comparé dans chaque if.  
 On obtient C2IY3XPZ9A.
-La fonction va alors retourner uVar2 = 0.
+La fonction va alors retourner 0 pour affecter cette valeur a iVar1.
 ```c
 if (iVar1 == 0) {
     puts("You have flag! Here it is:");
