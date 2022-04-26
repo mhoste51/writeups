@@ -3,8 +3,10 @@
     file reverseNotThatHard
     reverseNotThatHard: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=aaa7245cda21b424d1bcf061547f0ab2b73edc04, for GNU/Linux 3.2.0, not stripped
 
-Il s'agit d'un binaire ELF 64-bit executable complètement normal.
-    chmod +x reverseNotThatHard
+Il s'agit d'un binaire ELF 64-bit executable complètement normal.  
+```
+chmod +x reverseNotThatHard
+```
 
 Cet executable nous demande un mot de passe, avec "aaa" il nous renvois wrong password.
 Désassemblons ce fichier avec ghidra :
@@ -91,12 +93,12 @@ La condition
 if (sVarl == 0xc) 
 ```
 
-nous confirme que la taille du mot de passe est de 12.
+nous confirme que la taille du mot de passe est de 12.  
 On remarque ensuite un xor dans la première boucle for puis une vérification de ce xor dans la deuxième boucle for.  
 
 Le tableau local_c8 nous sert donc à obtenir une chaine xoré qui sera comparé à local_f8.
 local_84 et local_7c vont nous servir pour le xor.  
-La chaine xoré s'obtient de la manière suivante : (&local_84+i)XOR(local_c8[i]).
+La chaine xoré s'obtient de la manière suivante : (&local_84+i)^(local_c8[i]).
 ```c
 for (local_100 = 0; local_100 < 0xc; local_100 = local_100 + 1) {
     abStack144[local_100] =
@@ -133,20 +135,17 @@ Pour comprendre comment &local_84+i fonctionne, ouvrons radare2 :
 
 On pose un breakpoint sur le xor afin d'afficher les valeurs stockés dans la mémoire à chaque itération de la boucle
 ```
-    bp 0x0000138c
-    bc
-    br
+    dp 0x0000138c
+    dc
+    dr
 ```
 
-Bc nous permet de run le programme jusqu'au prochain breakpoint. Une fois le breakpoint toucher, br va nous permettre d'afficher les valeurs enregistrés en mémoire.
-
-Sur la première itération nous obtenons donc :
-
-Sur le première itération on retrouve donc rdx = 6e
-Sur la deuxième itération, rdx = 6f
-local_84 va donc se lire dans ce sens : 6e 6f 74 5f 66 6c 61 67
-A la 9ème itération, ce sera local_7c qui sera utilisé : 5f 3a 2d 28
-Je ne vais pas expliquer ici comment XOR fonctionne, nous allons plutôt faire un script :
+Dc nous permet de run le programme jusqu'au prochain breakpoint. Une fois le breakpoint toucher, dr va nous permettre d'afficher les valeurs enregistrés en mémoire.  
+Sur le première itération on retrouve donc rdx = 6e  
+Sur la deuxième itération, rdx = 6f  
+local_84 va donc se lire dans ce sens : 6e 6f 74 5f 66 6c 61 67  
+A la 9ème itération, ce sera local_7c qui sera utilisé : 5f 3a 2d 28  
+Je ne vais pas expliquer ici comment XOR fonctionne, nous allons plutôt faire un script :  
 
 ```python
 import string
