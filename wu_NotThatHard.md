@@ -7,7 +7,7 @@ Il s'agit d'un binaire ELF 64-bit executable complètement normal.
     chmod +x reverseNotThatHard
 
 Cet executable nous demande un mot de passe, avec "aaa" il nous renvois wrong password.
-Déssaemblons ce fichier avec ghidra :
+Désassemblons ce fichier avec ghidra :
 
 ```c
 undefined8 main(int param_1)
@@ -85,17 +85,17 @@ return 0;
 }
 ```
 
-Dans la fonction main on remarque deux tableaux qui sont initialisés : local_f8 et local_c8 avec une taille de 12.
+Dans la fonction main on remarque deux tableaux qui sont initialisés : local_f8 et local_c8 avec une taille de 12.  
 La condition 
 ```c
 if (sVarl == 0xc) 
 ```
 
 nous confirme que la taille du mot de passe est de 12.
-On remarque ensuite un xor dans la première boucle for puis une vérification de ce xor dans la deuxième boucle for.
+On remarque ensuite un xor dans la première boucle for puis une vérification de ce xor dans la deuxième boucle for.  
 
 Le tableau local_c8 nous sert donc à obtenir une chaine xoré qui sera comparé à local_f8.
-local_84 et local_7c vont nous servir pour le xor.
+local_84 et local_7c vont nous servir pour le xor.  
 La chaine xoré s'obtient de la manière suivante : (&local_84+i)XOR(local_c8[i]).
 ```c
 for (local_100 = 0; local_100 < 0xc; local_100 = local_100 + 1) {
