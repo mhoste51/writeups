@@ -90,7 +90,7 @@ undefined8 decode_flag(undefined2 *param_1,char *param_2)
 
 Ici on obtient une suite de condition entre notre chaine de caractère entrée et des caractères simples.  
 Rien de plus simple, pour reverse ces conditions, il suffit simplement de reprendre le caractère comparé dans chaque if.  
-On obtient C2IY3XPZ9.
+On obtient C2IY3XPZ9A.
 La fonction va alors retourner uVar2 = 0.
 ```c
 if (iVar1 == 0) {
@@ -100,4 +100,4 @@ if (iVar1 == 0) {
     uVar2 = 0;
 }
 ```
-Le flag est donc MCTF{C2IY3XPZ9}
+Le flag est donc MCTF{C2IY3XPZ9A}
