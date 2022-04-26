@@ -140,7 +140,7 @@ On pose un breakpoint sur le xor afin d'afficher les valeurs stockés dans la m�
     dr
 ```
 
-Dc nous permet de run le programme jusqu'au prochain breakpoint. Une fois le breakpoint toucher, dr va nous permettre d'afficher les valeurs enregistrés en mémoire.  
+Dc nous permet de run le programme jusqu'au prochain breakpoint. Une fois le breakpoint touché, dr va nous permettre d'afficher les valeurs enregistrés en mémoire.  
 Sur le première itération on retrouve donc rdx = 6e  
 Sur la deuxième itération, rdx = 6f  
 local_84 va donc se lire dans ce sens : 6e 6f 74 5f 66 6c 61 67  
