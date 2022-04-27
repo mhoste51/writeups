@@ -3,7 +3,7 @@
 file kgb
 kgb: PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
 ```
-Encore un éxécutable x86, parfait pour désassembler avec mon outil pref : ## ghidra  
+Encore un éxécutable x86, parfait pour désassembler avec mon outil pref : **ghidra**  
 On obtient alors le main suivant :  
 ```c
 undefined8 FUN_00401550(void)
@@ -105,4 +105,4 @@ for i in range(len(local18)):
 print(temp)
 print("".join(temp))
 ```
-Ce script va alors nous afficher le flag * MCTF{N4tH4N_1S_Th3_B35t}
+Ce script va alors nous afficher le flag *MCTF{N4tH4N_1S_Th3_B35t}*
