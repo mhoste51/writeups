@@ -66,5 +66,4 @@ string = "NBUE|sStd^ShhnMN~"
 flag = decrypt_string(string)
 print("".join(flag))
 ```
-Ce script nous affiche alors le flag : *MCTF{tRuc_RigoLO}
-*
+Ce script nous affiche alors le flag : *MCTF{tRuc_RigoLO}*
