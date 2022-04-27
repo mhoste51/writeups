@@ -1,4 +1,5 @@
 # Le stagiaire 
+[stagiaire.pyc](https://github.com/mhoste51/writeups/tree/main/ctfmidnight/code-source/stagiaire.pyc)
 Ce fichier est un fichier .pyc nous n'avons pas d'autres choix que d'utilises pycdc.
 ```c
 ┌──(kali㉿kali)-[~/Bureau/ctfmidnight]

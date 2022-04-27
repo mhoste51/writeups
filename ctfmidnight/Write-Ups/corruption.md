@@ -45,7 +45,7 @@ On se retrouve avec :
 iVar = input + 0x133769  
 On cherche donc : iVar + 0xffffffff = 0.  
 0xffffffff = -1 en hexa sur 4 octets. En C un int est sur 4 octets.  
-Nous obtenons alors -1, il nous reste plus qu'à ajouter +1 pour obtenir 0.  
+Nous obtenons alors -1, il nous reste plus qu'à ajouter +1 pour obtenir 0.    
 Avec toutes ces infos nous pouvons écrire notre mini script pour reverse l'algo.  
 ```python
 input = 0xffffffff-0x133769+1
