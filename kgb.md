@@ -3,7 +3,7 @@
 file kgb
 kgb: PE32+ executable (console) x86-64 (stripped to external PDB), for MS Windows
 ```
-Encore un éxécutable x86, parfait pour désassembler avec le meilleur outil : ##ghidra  
+Encore un éxécutable x86, parfait pour désassembler avec mon outil pref : ## ghidra  
 On obtient alors le main suivant :  
 ```c
 undefined8 FUN_00401550(void)
@@ -55,7 +55,7 @@ Dans la boucle nous avons un autre if :
 ```c
 if ((local_18[local_c] ^ 0x42) != *(byte *)((longlong)&local_58 + (longlong)local_c)
 ```
-Ce qui nous intéresse ici, c'est le local_58 qui est notre input. Pour obtenir la chaîne de caractère c'est ce que nous allons devoir reverse.  
+Ce qui nous intéresse ici, c'est le local_58 qui est notre input. Pour obtenir la chaîne de caractères c'est ce que nous allons devoir reverse.  
 On sait que a^b=c et c^b=a, nous devons alors faire local_18[]^0X42. Cela va nous servir à créer notre script.  
 Or il nous manque la valeur de local_18 vous allez me dire. Allons donc chercher les valeurs entrées dans la mémoire.
 ```
@@ -105,4 +105,4 @@ for i in range(len(local18)):
 print(temp)
 print("".join(temp))
 ```
-Ce script va alors nous afficher le flag *MCTF{N4tH4N_1S_Th3_B35t}
+Ce script va alors nous afficher le flag * MCTF{N4tH4N_1S_Th3_B35t}
