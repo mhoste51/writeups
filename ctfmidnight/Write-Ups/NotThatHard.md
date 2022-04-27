@@ -1,8 +1,9 @@
 # NotThatHard
-
-    file reverseNotThatHard
-    reverseNotThatHard: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=aaa7245cda21b424d1bcf061547f0ab2b73edc04, for GNU/Linux 3.2.0, not stripped
-
+[NotThatHard](https://github.com/mhoste51/writeups/tree/main/ctfmidnight/code-source/reverseNotThatHard) 
+```
+file reverseNotThatHard
+reverseNotThatHard: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=aaa7245cda21b424d1bcf061547f0ab2b73edc04, for GNU/Linux 3.2.0, not stripped
+```
 Il s'agit d'un binaire ELF 64-bit executable complètement normal.  
 ```
 chmod +x reverseNotThatHard
@@ -169,4 +170,4 @@ for i in range(len(temp)):
 print("".join(temp2))
 ```
 
-Qui va donc retourner e4sy_R3vEr5e
+Qui va donc retourner e4sy_R3vEr5e pour avoir le flag *MCTF{e4sy_R3vEr5e}*

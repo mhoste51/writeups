@@ -1,4 +1,5 @@
 # corruption
+[corruption](https://github.com/mhoste51/writeups/tree/main/ctfmidnight/code-source/corruption) 
 ```
 file corruption
 corruption: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=b83e898d5373971586776ef960eac000fbfd290a, not stripped
