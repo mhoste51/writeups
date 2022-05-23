@@ -1,0 +1,101 @@
+# Without A Trace
+[Without_a_trace](https://(https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/without_a_trace)   
+*Points : **300** / Solves : **413** / Difficulty : **easy***   
+```
+mathieu@MacBook-Air-de-Mathieu Downloads % file without_a_trace 
+without_a_trace: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=03105824f1750f660de5b016b113b8a505bc2896, not stripped
+```   
+Executable ELF x86 not stripped, rien de plus basique. Avec une simple execution, le programme nous demande un mot de passe et en cas de mauvais pass nous retourne *"Intruder detected"*.   
+En suivant son execution avec ltrace, on est vite bloqué par ptrace. En effet, ptrace empêche toute analyse dynamique du programme.   
+Nous avons donc deux solutions devant nous : bypass ptrace ou alors l'analyse statique.  
+Personellement j'adore l'analyse statique alors j'ai ouvert ghidra.   
+```c
+undefined8 main(void)
+
+{
+  char cVar1;
+  char *pcVar2;
+  undefined8 uVar3;
+  long in_FS_OFFSET;
+  undefined8 local_58;
+  undefined8 local_50;
+  undefined8 local_48;
+  undefined8 local_40;
+  undefined8 local_38;
+  undefined8 local_30;
+  undefined8 local_28;
+  undefined8 local_20;
+  long local_10;
+  
+  local_10 = *(long *)(in_FS_OFFSET + 0x28);
+  puts("[+] Primary Mothership Tracking Panel");
+  puts("[X] Unusual activity detected");
+  puts(" |-------] Unrecognised login location: Earth");
+  printf("[X] Please verify your identity by entering your password > ");
+  local_58 = 0;
+  local_50 = 0;
+  local_48 = 0;
+  local_40 = 0;
+  local_38 = 0;
+  local_30 = 0;
+  local_28 = 0;
+  local_20 = 0;
+  fgets((char *)&local_58,0x40,stdin);
+  pcVar2 = strchr((char *)&local_58,10);
+  *pcVar2 = '\0';
+  cVar1 = check_password(&local_58);
+  if (cVar1 == '\0') {
+    printf("[X] Intruder detected - dispatching security systems");
+    uVar3 = 0xffffffff;
+  }
+  else {
+    puts("[+] Identity Verified");
+    puts("[+] Fetching fleet locations...");
+    uVar3 = 0;
+  }
+  if (local_10 != *(long *)(in_FS_OFFSET + 0x28)) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return uVar3;
+}
+```
+Dans le main on remarque l'appel à une fonction *check_password* (merci le not stripped).   
+La fonction, qui comme son nom l'indique, permet de vérifier la validité du password de manière classique avec un XOR : 
+```c
+  local_10 = *(long *)(in_FS_OFFSET + 0x28);
+  lVar2 = ptrace(PTRACE_TRACEME,0,0,0);
+  local_38 = 0x1c4b0d0b043d2b37;
+  local_30 = 0x200f0a204c12204c;
+  local_28 = 0x184f18200a204b1d;
+  local_20 = 0x24f;
+  local_1e = 0;
+  for (local_40 = 0; local_40 < 0x1a; local_40 = local_40 + 1) {
+    *(byte *)((long)&local_38 + (long)(int)local_40) =
+         *(byte *)((long)&local_38 + (long)(int)local_40) ^ (char)lVar2 + 0x7fU;
+  }
+  iVar1 = strcmp(param_1,(char *)&local_38);
+  if (local_10 != *(long *)(in_FS_OFFSET + 0x28)) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+```   
+Nous avons un strcmp qui va comparer notre input à une chaine xorée. Pour reverse cet algo nous devons juste retrouver la chaine xorée :   
+```c
+for (local_40 = 0; local_40 < 0x1a; local_40 = local_40 + 1) {
+    *(byte *)((long)&local_38 + (long)(int)local_40) =
+         *(byte *)((long)&local_38 + (long)(int)local_40) ^ (char)lVar2 + 0x7fU;
+  }
+```
+Les valeurs de local_38/30/28/20 ^ 0x7f sera égale à notre chaine xorée. Pour cela rien de plus simple que de reproduire cette algo avec un script :   
+```py
+local_38 = [0x37,0x2b,0x3d,0x04,0x0b,0x0d,0x4b,0x1c,0x4c,0x20,0x12,0x4c,0x20,0x0a,0x0f,0x20,0x1d,0x4b,0x20,0x0a,0x20,0x18,0x4f,0x18,0x4f,0x02]
+key = 0x7f
+
+res = []
+for i in range(len(local_38)):
+	res.append(chr(local_38[i]^key))
+
+print("".join(res))
+```
+Ce qui nous donnes notre flag **HTB{tr4c3_m3_up_b4_u_g0g0}** !
