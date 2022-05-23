@@ -1,5 +1,5 @@
 # Teleport 
-[omega-One](https://(https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/teleport)  
+[omega-One](https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/teleport)  
 *Points : **300** / Solves : **307** / Difficulty : **Medium***   
 ```
 mathieu@MacBook-Air-de-Mathieu Downloads % file teleport 

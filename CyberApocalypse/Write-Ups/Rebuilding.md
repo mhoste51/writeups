@@ -1,5 +1,5 @@
 # Rebuilding  
-[rebuilding](https://(https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/rebuilding)  
+[rebuilding](https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/rebuilding)  
 *Points : **300** / Solves : **463** / Difficulty : **easy***   
 ```
 mathieu@MacBook-Air-de-Mathieu Downloads % file rebuilding 
@@ -74,4 +74,11 @@ for i in range(len(encrypted)):
 	res.append(chr(encrypted[i]^(ord(key[i%6]))))
 
 print("".join(res))
-```
+```   
+Je vais vite me rendre compte que le script est faux car il retourne le résultat suivant :   
+**AMFh1m(jc_1gFg4ns}kqgt0{,[5n1}d**   
+On a donc un problème ici, ça ne veut strictement rien dire.   
+Je décide alors de regarder ce qu'il se passe avec radare2 en posant un breakpoint sur le xor.   
+A la première itération on comprend vite pourquoi ça ne marche pas, la clef à été modifié avec la valeur "aliens".   
+Il suffit alors de changer la valeur de la clef dans notre script et nous avons le flag : **HTB{h1d1ng_1n_c0nstruct0r5_1n1t}**   
+En lisant le flag j'me suis mit a chercher où était la modification et en effet elle est en clair dans le constructeur _INIT_1

@@ -1,5 +1,5 @@
 # Omega One  
-[omega-One](https://(https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/omega-one)  
+[omega-One](https://github.com/mhoste51/writeups/tree/main/CyberApocalypse/Code-source/omega-one)  
 *Points : **300** / Solves : **509** / Difficulty : **easy***   
 Le fichier zip nous donne deux fichiers : omega-one et output.txt.  
 ```
